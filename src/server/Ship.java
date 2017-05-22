@@ -1,3 +1,5 @@
+package server;
+
 public class Ship {
 
 	private String name;
@@ -12,11 +14,15 @@ public class Ship {
 		this.tilesLeft = this.length;
 	}
 
+	public String getName() {
+		return this.name;
+	}
+
 	public int getLength() {
 		return this.length;
 	}
 
-	public boolean getHorizontal() {
+	public boolean isHorizontal() {
 		return this.horizontal;
 	}
 
@@ -29,7 +35,7 @@ public class Ship {
 	}
 
 	public boolean isDestroyed() {
-		return this.tilesLeft <= 0;
+		return this.tilesLeft == 0;
 	}
 
 }

@@ -1,3 +1,5 @@
+package server;
+
 public class Tile {
 
 	private TileState state;
@@ -22,10 +24,13 @@ public class Tile {
 		}
 	}
 
-	public void bomb() {
+	public Ship bomb() {
 		if (this.state == TileState.OCCUPIED) {
 			this.state = TileState.DESTROYED;
+			this.ship.bomb();
 		}
+
+		return this.ship;
 	}
 
 	public String toString() {

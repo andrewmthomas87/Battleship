@@ -1,0 +1,11 @@
+package client;
+
+public enum TileState {
+	EMPTY,
+	AIRCRAFT_CARRIER,
+	BATTLESHIP,
+	SUBMARINE,
+	CRUISER,
+	DESTROYER,
+	DESTROYED
+}
