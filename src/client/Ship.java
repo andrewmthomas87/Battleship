@@ -34,7 +34,7 @@ public class Ship {
 
 	public Color getColor() {
 		switch (this.tileState) {
-			case AIRCRAFT_CARRIER:
+			case CARRIER:
 				return Color.WHITE;
 			case BATTLESHIP:
 				return Color.LIGHT_GRAY;

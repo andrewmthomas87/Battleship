@@ -2,7 +2,7 @@ package client;
 
 public enum TileState {
 	EMPTY,
-	AIRCRAFT_CARRIER,
+	CARRIER,
 	BATTLESHIP,
 	SUBMARINE,
 	CRUISER,

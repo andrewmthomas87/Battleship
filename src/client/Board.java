@@ -42,7 +42,7 @@ public class Board extends JPanel implements MouseListener {
 
 	private Color getColorFromTileState(TileState tileState) {
 		switch (tileState) {
-			case AIRCRAFT_CARRIER:
+			case CARRIER:
 				return Color.WHITE;
 			case BATTLESHIP:
 				return Color.LIGHT_GRAY;

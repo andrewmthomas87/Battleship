@@ -27,7 +27,6 @@ public class ShipPlacement extends JPanel {
 	public void setShip(Ship ship) {
 		this.ship = ship;
 		this.shipName.setText("Place your " + ship.getName() + " (" + ship.getLength() + ") ");
-		this.orientation.setForeground(Color.WHITE);
 		this.orientation.setBackground(ship.getColor());
 		this.orientation.setText(ship.isHorizontal() ? " Horizontal " : " Vertical ");
 	}

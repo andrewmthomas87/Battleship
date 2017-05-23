@@ -38,4 +38,8 @@ public class Ship {
 		return this.tilesLeft == 0;
 	}
 
+	public Ship clone() {
+		return new Ship(this.name, this.length, this.horizontal);
+	}
+
 }

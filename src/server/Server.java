@@ -21,7 +21,7 @@ public class Server implements Runnable {
 			while (true) {
 				try {
 					Socket socket = this.server.accept();
-					new Thread(new SocketHandler(socket)).run();
+					new Thread(new Client(socket)).start();
 				}
 				catch (IOException exception) {
 					exception.printStackTrace();
