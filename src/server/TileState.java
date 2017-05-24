@@ -1,6 +1,7 @@
 package server;
 
-public enum TileState {
+public enum TileState
+{
 	EMPTY,
 	OCCUPIED,
 	DESTROYED

@@ -1,8 +1,10 @@
 package client;
 
-public enum GameState {
-    PLACING,
-    CONNECTING,
-    PLAYING,
-    POSTGAME
+public enum GameState
+{
+	PLACING,
+	CONNECTING,
+	PLAYING,
+	POSTGAME,
+	DISCONNECTED
 }

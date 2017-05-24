@@ -5,14 +5,14 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class Board extends JPanel implements MouseListener
+public class OpponentBoard extends JPanel implements MouseListener
 {
 
-	private TileListener tileListener;
+	private OpponentTileListener tileListener;
 
-	private TileState[][] tiles = new TileState[ 10 ][ 10 ];
+	private OpponentTileState[][] tiles = new OpponentTileState[ 10 ][ 10 ];
 
-	public Board( TileListener tileListener )
+	public OpponentBoard( OpponentTileListener tileListener )
 	{
 		this.tileListener = tileListener;
 
@@ -20,56 +20,40 @@ public class Board extends JPanel implements MouseListener
 		{
 			for ( int y = 0; y < 10; y++ )
 			{
-				this.tiles[ x ][ y ] = TileState.EMPTY;
+				this.tiles[ x ][ y ] = OpponentTileState.EMPTY;
 			}
 		}
 
 		this.addMouseListener( this );
 	}
 
-	public void placeShip( Ship ship, int x, int y )
+	public boolean isEmpty( int x, int y )
 	{
-		for ( int i = 0; i < ship.getLength(); i++ )
-		{
-			if ( ship.isHorizontal() )
-			{
-				this.tiles[ x + i ][ y ] = ship.getTileState();
-			}
-			else
-			{
-				this.tiles[ x ][ y + i ] = ship.getTileState();
-			}
-		}
+		return this.tiles[ x ][ y ] == OpponentTileState.EMPTY;
+	}
+
+	public void miss( int x, int y )
+	{
+		this.tiles[ x ][ y ] = OpponentTileState.MISS;
 
 		this.repaint();
 	}
 
-	public void bomb( int x, int y )
+	public void hit( int x, int y )
 	{
-		if ( this.tiles[ x ][ y ] != TileState.EMPTY )
-		{
-			this.tiles[ x ][ y ] = TileState.DESTROYED;
-		}
+		this.tiles[ x ][ y ] = OpponentTileState.HIT;
 
 		this.repaint();
 	}
 
-	private Color getColorFromTileState( TileState tileState )
+	private Color getColorFromTileState( OpponentTileState tileState )
 	{
 		switch ( tileState )
 		{
-			case CARRIER:
-				return Color.WHITE;
-			case BATTLESHIP:
-				return Color.YELLOW;
-			case SUBMARINE:
-				return Color.CYAN;
-			case CRUISER:
-				return Color.ORANGE;
-			case DESTROYER:
-				return Color.GREEN;
-			case DESTROYED:
+			case HIT:
 				return Color.RED;
+			case MISS:
+				return Color.WHITE;
 			default:
 				return Color.BLUE;
 		}
@@ -99,10 +83,17 @@ public class Board extends JPanel implements MouseListener
 		{
 			for ( int y = 0; y < 10; y++ )
 			{
-				g.setColor( this.getColorFromTileState( this.tiles[ x ][ y ] ) );
+				g.setColor( this.getColorFromTileState( OpponentTileState.EMPTY ) );
 				g.fillRect( horizontalOffset + x * tileSize, verticalOffset + y * tileSize, tileSize, tileSize );
 				g.setColor( Color.BLACK );
 				g.drawRect( horizontalOffset + x * tileSize, verticalOffset + y * tileSize, tileSize, tileSize );
+
+				OpponentTileState tileState = this.tiles[ x ][ y ];
+				if ( tileState != OpponentTileState.EMPTY )
+				{
+					g.setColor( this.getColorFromTileState( this.tiles[ x ][ y ] ) );
+					g.fillOval( (int) Math.round( horizontalOffset + ( x + 0.15 ) * tileSize ), (int) Math.round( verticalOffset + ( y + 0.15 ) * tileSize ), (int) Math.round( tileSize * 0.7 ), (int) Math.round( tileSize * 0.7 ) );
+				}
 			}
 		}
 	}
@@ -129,27 +120,31 @@ public class Board extends JPanel implements MouseListener
 			return;
 		}
 
-		this.tileListener.onTileClick( x / tileSize, y / tileSize );
+		this.tileListener.onOpponentTileClick( x / tileSize, y / tileSize );
 	}
 
 	@Override
 	public void mousePressed( MouseEvent e )
 	{
+
 	}
 
 	@Override
 	public void mouseReleased( MouseEvent e )
 	{
+
 	}
 
 	@Override
 	public void mouseEntered( MouseEvent e )
 	{
+
 	}
 
 	@Override
 	public void mouseExited( MouseEvent e )
 	{
+
 	}
 
 }

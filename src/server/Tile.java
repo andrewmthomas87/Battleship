@@ -1,31 +1,44 @@
 package server;
 
-public class Tile {
+public class Tile
+{
 
 	private TileState state;
-	private Ship ship;
+	private Ship      ship;
 
-	public Tile() {
-		this(TileState.EMPTY, null);
+	public Tile()
+	{
+		this( TileState.EMPTY, null );
 	}
 
-	public Tile(TileState state, Ship ship) {
+	public Tile( TileState state, Ship ship )
+	{
 		this.state = state;
 		this.ship = ship;
 	}
 
-	public void setShip(Ship ship) {
+	public boolean isOccupied()
+	{
+		return this.ship != null;
+	}
+
+	public void setShip( Ship ship )
+	{
 		this.ship = ship;
-		if (this.ship == null) {
+		if ( this.ship == null )
+		{
 			this.state = TileState.EMPTY;
 		}
-		else {
+		else
+		{
 			this.state = TileState.OCCUPIED;
 		}
 	}
 
-	public Ship bomb() {
-		if (this.state == TileState.OCCUPIED) {
+	public Ship bomb()
+	{
+		if ( this.state == TileState.OCCUPIED )
+		{
 			this.state = TileState.DESTROYED;
 			this.ship.bomb();
 		}
@@ -33,8 +46,10 @@ public class Tile {
 		return this.ship;
 	}
 
-	public String toString() {
-		switch (this.state) {
+	public String toString()
+	{
+		switch ( this.state )
+		{
 			case OCCUPIED:
 				return "█";
 			case DESTROYED:

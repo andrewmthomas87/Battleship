@@ -5,39 +5,43 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server implements Runnable {
+public class Server implements Runnable
+{
 
 	private ServerSocket server;
+	private Battleship   battleship;
 
-	public Server() throws IOException {
+	public Server( Battleship battleship ) throws IOException
+	{
 		this.server = new ServerSocket();
+		this.battleship = battleship;
 	}
 
 	@Override
-	public void run() {
-		try {
-			this.server.bind(new InetSocketAddress("localhost", 6666));
+	public void run()
+	{
+		try
+		{
+			this.server.bind( new InetSocketAddress( "0.0.0.0", 6789 ) );
 
-			while (true) {
-				try {
+			while ( true )
+			{
+				try
+				{
 					Socket socket = this.server.accept();
-					new Thread(new Client(socket)).start();
+					if ( !this.battleship.addClient( socket ) )
+					{
+						socket.close();
+					}
 				}
-				catch (IOException exception) {
+				catch ( IOException exception )
+				{
 					exception.printStackTrace();
 				}
 			}
 		}
-		catch (IOException exception) {
-			exception.printStackTrace();
-		}
-	}
-
-	public static void main(String[] args) {
-		try {
-			new Thread(new Server()).run();
-		}
-		catch (IOException exception) {
+		catch ( IOException exception )
+		{
 			exception.printStackTrace();
 		}
 	}

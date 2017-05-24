@@ -1,6 +1,7 @@
 package client;
 
-public enum TileState {
+public enum TileState
+{
 	EMPTY,
 	CARRIER,
 	BATTLESHIP,
